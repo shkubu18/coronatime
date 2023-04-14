@@ -16,7 +16,7 @@
                 </form>
                 <div class="flex justify-center">
                     <p class="mr-1 text-gray-400">Already have an account?</p>
-                    <a class="ml-1 font-semibold" href="{{ route('auth.show') }}">Log in</a>
+                    <a class="ml-1 font-semibold" href="{{ route('login.page') }}">Log in</a>
                 </div>
             </div>
         </div>
