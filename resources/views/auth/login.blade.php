@@ -10,17 +10,18 @@
                     <x-form.input name="username" type="text" placeholder="Enter unique username or email" />
                     <x-form.input name="password" type="text" placeholder="Fill in password" />
                     <x-form.remember-device />
-                    <x-form.button>LOG IN</x-form.button>
 
-                    <div class="flex justify-center">
-                        <p class="mr-1 text-gray-400">Don't have an account?</p>
-                        <a class="ml-1 font-semibold" href="{{ route('register.show') }}">Sing up for free</a>
-                    </div>
+                    <x-form.button>LOG IN</x-form.button>
                 </form>
+                <div class="flex justify-center">
+                    <p class="mr-1 text-gray-400">Don't have an account?</p>
+                    <a class="ml-1 font-semibold" href="{{ route('register.page') }}">Sing up for free</a>
+                </div>
             </div>
         </div>
-        <div class="w-2/5 min-h-screen hidden md:block">
-            <img class="h-full w-full object-cover" src="./images/background-img.jpg" alt="vaccine bottles">
+        <div
+            class="bg-cover bg-no-repeat bg-center w-2/5 min-h-full hidden md:flex md:items-end"
+            style="background-image: url('./images/background-img.jpg')">
         </div>
     </div>
 </x-layout>
