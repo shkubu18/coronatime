@@ -1,10 +1,10 @@
 <x-layout>
     <div class="min-h-screen flex justify-between mx-2 sm:m-0">
-        <div class="w-full flex items-center flex-col mt-4 lg:w-3/5 lg:items-start lg:pt-6 lg:pl-24 lg:mx-10">
-            <x-logo />
-            <div class="mt-11 w-fit">
-                <h1 class="font-semibold text-3xl">Welcome to Coronatime</h1>
-                <p class="mt-2 text-gray-400 text-xl">Please enter required info to sing up</p>
+        <div class="w-full flex items-center flex-col py-6 lg:w-3/5 lg:items-start lg:pl-24 lg:mx-10">
+            <div class="w-fit">
+                <x-logo />
+                <h1 class="font-semibold text-2xl lg:text-3xl">Welcome to Coronatime</h1>
+                <p class="mt-2 text-gray-400 text-lg lg:text-xl">Please enter required info to sing up</p>
                 <form class="my-6" action="#" method="POST">
 
                     <x-form.input name="username" hint="sing_up" type="text" placeholder="Enter unique username" />
