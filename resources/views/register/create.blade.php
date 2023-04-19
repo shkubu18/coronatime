@@ -2,7 +2,7 @@
     <div class="min-h-screen flex justify-between mx-2 sm:m-0">
         <div class="w-full flex items-center flex-col py-6 lg:w-3/5 lg:items-start lg:pl-24 lg:mx-10">
             <div class="w-fit">
-                <x-logo />
+                <x-logo class="mb-10" />
                 <h1 class="font-semibold text-2xl lg:text-3xl">Welcome to Coronatime</h1>
                 <p class="mt-2 text-gray-400 text-lg lg:text-xl">Please enter required info to sing up</p>
                 <form class="my-6" action="#" method="POST">
@@ -22,7 +22,7 @@
         </div>
         <div
             class="bg-cover bg-no-repeat bg-center w-2/5 min-h-full hidden md:flex md:items-end"
-            style="background-image: url('./images/background-img.jpg')">
+            style="background-image: url('./assets/images/background-img.jpg')">
         </div>
     </div>
 </x-layout>

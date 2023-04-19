@@ -3,7 +3,7 @@
         <x-logo class="mb-0" />
 
         <div class="flex flex-col items-center sm:mt-56">
-            <img src="./images/checkmark.gif">
+            <img src="{{ asset('assets/images/checkmark.gif') }}" alt="confirmation icon">
             <p class="mt-2 text-lg text-center">Your password has been updated successfully</p>
         </div>
 
