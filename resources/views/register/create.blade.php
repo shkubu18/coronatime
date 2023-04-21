@@ -5,7 +5,8 @@
                 <x-logo class="mb-10" />
                 <h1 class="font-semibold text-2xl lg:text-3xl">Welcome to Coronatime</h1>
                 <p class="mt-2 text-gray-400 text-lg lg:text-xl">Please enter required info to sing up</p>
-                <form class="my-6" action="#" method="POST">
+                <form class="my-6" action="/registration" method="POST">
+                    @csrf
 
                     <x-form.input name="username" hint="sing_up" type="text" placeholder="Enter unique username" />
                     <x-form.input name="email" type="email" placeholder="Enter your email" />
