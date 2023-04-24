@@ -10,7 +10,7 @@ class EmailVerificationController extends Controller
 {
 	public function verify($id): RedirectResponse
 	{
-		event(new Verified(User::findOrFail($id)));
+		event(new Verified(User::where('email_verification_token', $id)->firstOrFail()));
 
 		return redirect()->route('verification.notice');
 	}
