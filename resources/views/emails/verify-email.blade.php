@@ -69,8 +69,8 @@
         <h1>Confirmation Email</h1>
         <h3>click this button to verify your email</h3>
         <br>
-        @if(isset($url))
-            <a href="{{ $url }}">Verify Email</a>
+        @if(isset($verificationUrl))
+            <a href="{{ $verificationUrl }}">Verify Email</a>
         @endif
     </div>
 </body>
