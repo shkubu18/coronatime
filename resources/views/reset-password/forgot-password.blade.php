@@ -5,7 +5,9 @@
         <x-reset-password.container>
             <div>
                 <h1 class="font-semibold text-2xl text-center sm:mt-36">Reset Password</h1>
-                <form id="reset-password" class="w-full my-10" action="#" method="POST">
+                <form id="reset-password" class="w-full my-10" action="{{ route('password.email') }}" method="POST">
+                    @csrf
+
                     <x-form.input name="email" type="email" placeholder="Enter your email" />
 
                 </form>
