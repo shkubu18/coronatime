@@ -8,5 +8,5 @@
         >
         <label class="font-medium" for="remember">Remember this device</label>
     </div>
-    <a class="text-indigo-700 font-medium" href="{{ route('password.verify_email') }}">Forgot password?</a>
+    <a class="text-indigo-700 font-medium" href="{{ route('password.request') }}">Forgot password?</a>
 </div>
