@@ -5,10 +5,16 @@
                 <x-logo class="mb-10" />
                 <h1 class="font-semibold text-2xl lg:text-3xl">Welcome back</h1>
                 <p class="mt-2 text-gray-400 text-lg lg:text-xl">Welcome back! Please enter your details</p>
-                <form class="my-6" action="#" method="POST">
+                <form class="my-6" action="/login" method="POST">
+                    @csrf
 
-                    <x-form.input name="username" type="text" placeholder="Enter unique username or email" />
+                    <x-form.input name="username" hint="login" type="text" placeholder="Enter unique username or email" />
                     <x-form.input name="password" type="text" placeholder="Fill in password" />
+
+                    @error('auth_fail')
+                        <p class="mb-5 text-red-700">{{ $message }}</p>
+                    @enderror
+
                     <x-form.remember-device />
 
                     <x-form.button>LOG IN</x-form.button>

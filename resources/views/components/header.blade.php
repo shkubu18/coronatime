@@ -4,8 +4,8 @@
         <x-language-switcher />
 
         <div class="hidden sm:flex">
-            <h1 class="font-semibold mx-4 border-r-2 pr-4">Davit Shkubuliani</h1>
-            <a href="#">Log Out</a>
+            <h1 class="font-semibold mx-4 border-r-2 pr-4">{{ ucwords(auth()->user()->username) }}</h1>
+            <a href="{{ route('logout') }}">Log Out</a>
         </div>
 
         <div x-data="{show: false}">

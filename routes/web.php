@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,19 @@ use App\Http\Controllers\EmailVerificationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', function () {
+	return redirect()->route('dashboard.worldwide');
+});
+
+Route::middleware('guest')->group(function () {
+	Route::view('/login', 'auth.login')->name('login.page');
+	Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
+
+Route::middleware('auth')->group(function () {
+	Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
 Route::view('/registration', 'register.create')->name('register.page');
 
