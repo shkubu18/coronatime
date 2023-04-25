@@ -9,7 +9,7 @@
                     @csrf
 
                     <x-form.input name="username" hint="login" type="text" placeholder="Enter unique username or email" />
-                    <x-form.input name="password" type="text" placeholder="Fill in password" />
+                    <x-form.input name="password" type="password" placeholder="Fill in password" />
 
                     @error('auth_fail')
                         <p class="mb-5 text-red-700">{{ $message }}</p>
