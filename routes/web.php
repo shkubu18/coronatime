@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\CovidStatisticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 	// logout
 	Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+	//statistics
+	Route::get('/statistics/worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('dashboard.worldwide');
+	Route::get('/statistics/by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('dashboard.by_country');
 });
