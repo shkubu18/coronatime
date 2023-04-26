@@ -31,14 +31,7 @@ class CovidStatisticController extends Controller
 			$query->whereRaw('LOWER(country) LIKE ?', ['%' . $search . '%']);
 		}
 
-		if (in_array($sortBy, ['confirmed', 'deaths', 'recovered']))
-		{
-			$query->orderBy($sortBy, $sortOrder);
-		}
-		else
-		{
-			$query->orderBy('id', $sortOrder);
-		}
+		$query->orderBy(in_array($sortBy, ['confirmed', 'deaths', 'recovered']) ? $sortBy : 'id', $sortOrder);
 
 		return view('user.dashboard.by-country', [
 			'countries'      => $query->get(),
