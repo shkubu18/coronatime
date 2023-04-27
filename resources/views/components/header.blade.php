@@ -15,7 +15,7 @@
                 src="{{ asset('assets/icons/menu-bar.png') }}"
                 alt="menu bar"
             />
-            <div x-show="show" class="absolute bg-teal-400 text-white text-center right-3 top-16 rounded px-4 py-2">
+            <div x-show="show" style="display: none" class="absolute bg-teal-400 text-white text-center right-3 top-16 rounded px-4 py-2">
                 <a @click="show = !show" href="#">Log Out</a>
             </div>
         </div>
