@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\CovidStatistic;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class UpdateCovidStatistics extends Command
@@ -29,25 +29,24 @@ class UpdateCovidStatistics extends Command
 	{
 		$countries = Http::get('https://devtest.ge/countries')->json();
 
-		foreach ($countries as $country)
-		{
+		$data = collect($countries)->map(function ($country) {
 			$countryStats = Http::post('https://devtest.ge/get-country-statistics', [
 				'code' => $country['code'],
 			])->json();
 
-			CovidStatistic::updateOrCreate(
-				[
-					'country_code' => $country['code'],
-					'country'      => json_encode([
-						'en' => $country['name']['en'],
-						'ka' => $country['name']['ka'],
-					]),
-					'confirmed' => $countryStats['confirmed'],
-					'recovered' => $countryStats['recovered'],
-					'deaths'    => $countryStats['deaths'],
-				]
-			);
-		}
+			return [
+				'country_code' => $country['code'],
+				'country'      => json_encode([
+					'en' => $country['name']['en'],
+					'ka' => $country['name']['ka'],
+				]),
+				'confirmed' => $countryStats['confirmed'],
+				'recovered' => $countryStats['recovered'],
+				'deaths'    => $countryStats['deaths'],
+			];
+		});
+
+		DB::table('covid_statistics')->upsert($data->all(), ['country_code'], ['country', 'confirmed', 'recovered', 'deaths']);
 
 		$this->info('Covid statistics updated successfully!');
 	}
