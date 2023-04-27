@@ -12,7 +12,7 @@ return new class extends Migration {
 	{
 		Schema::create('covid_statistics', function (Blueprint $table) {
 			$table->id();
-			$table->string('country_code');
+			$table->string('country_code')->unique();
 			$table->json('country');
 			$table->mediumInteger('confirmed')->default(0)->unsigned();
 			$table->mediumInteger('recovered')->default(0)->unsigned();
