@@ -18,20 +18,10 @@ class CovidStatisticController extends Controller
 
 	public function statisticsByCountry(Request $request): View
 	{
-		$search = $request->input('search');
-
-		$sortOrder = $request->input('sort_order', 'asc');
-		$sortBy = $request->input('sort_by', 'location');
-
 		$query = CovidStatistic::query();
 
-		if ($search)
-		{
-			$search = strtolower($search);
-			$query->whereRaw('LOWER(country) LIKE ?', ['%' . $search . '%']);
-		}
-
-		$query->orderBy(in_array($sortBy, ['confirmed', 'deaths', 'recovered']) ? $sortBy : 'id', $sortOrder);
+		$query->search($request->input('search'));
+		$query->sort($request->input('sort_by', 'location'), $request->input('sort_order', 'asc'));
 
 		return view('user.dashboard.by-country', [
 			'countries'      => $query->get(),
