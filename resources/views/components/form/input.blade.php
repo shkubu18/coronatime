@@ -5,7 +5,7 @@
     <div class="relative">
         <input
             @if($errors->has('auth_fail'))
-                class="w-full border-2 rounded-md p-2.5 pl-5 pr-8 border-red"
+                class="w-full border-2 rounded-md p-2.5 pl-5 pr-8 border-warning-color"
             @else
                 class="w-full border-2 rounded-md p-2.5 pl-5 pr-8 {{ $errors->has($name) ? 'border-warning-color' : (old($name) && !$errors->has($name) ? 'border-input-green' : 'border-light-gray') }}"
             @endif
