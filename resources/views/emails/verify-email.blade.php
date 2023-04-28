@@ -66,7 +66,7 @@
 <body>
     <div>
         <img src="{{ asset('./assets/images/image-for-emails.png') }}" alt="dashboard">
-        <h1>{{ __('sending-emails.confirmation_email') }}</h1>
+        <h1>{{ __('sending-emails.email_confirmation') }}</h1>
         <h3>{{ __('sending-emails.email_verify') }}</h3>
         <br>
         @if(isset($verificationUrl))
