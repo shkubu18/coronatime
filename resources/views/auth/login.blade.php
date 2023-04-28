@@ -28,6 +28,12 @@
                             <p class="text-red-700">{{ __('auth.auth_fail') }}</p>
                         </div>
                         @enderror
+                        @error('email_verify')
+                        <div class="flex items-center mb-5 ml-1">
+                            <img class="h-4 mr-3" src="{{ asset('./assets/icons/input-warning.png') }}" alt="warning icon">
+                            <p class="text-red-700">{{ $message }}</p>
+                        </div>
+                        @enderror
 
                         <x-form.remember-device />
 
