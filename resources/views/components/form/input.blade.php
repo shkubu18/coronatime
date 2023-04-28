@@ -4,7 +4,7 @@
     <x-form.label inputName="{{ $name }}" labelName="{{ $label }}" />
     <div class="relative">
         <input
-            @if($errors->has('auth_fail'))
+            @if($errors->has('auth_fail') || $errors->has('email_verify'))
                 class="w-full border-2 rounded-md p-2.5 pl-5 pr-8 border-warning-color"
             @else
                 class="w-full border-2 rounded-md p-2.5 pl-5 pr-8 {{ $errors->has($name) ? 'border-warning-color' : (old($name) && !$errors->has($name) ? 'border-input-green' : 'border-light-gray') }}"
@@ -18,6 +18,7 @@
             class="h-4 absolute top-4 right-3
             @if($name === 'login')
             {{ old($name) && !$errors->has('auth_fail') ? 'block' : 'hidden' }}
+            {{ old($name) && !$errors->has('email_verify') ? 'block' : 'hidden' }}
             @else
             {{ old($name) && !$errors->has($name) ? 'block' : 'hidden' }}
             @endif"
