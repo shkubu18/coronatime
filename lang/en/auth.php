@@ -2,6 +2,7 @@
 
 return [
 	'auth_fail'            => 'Email or password is incorrect',
+	'email_verify'         => 'Your email is not verified. Please verify your email before logging in.',
 	'first_heading'        => 'Welcome back',
 	'second_heading'       => 'Welcome back! Please enter your details',
 	'username'             => 'Username',
