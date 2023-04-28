@@ -21,7 +21,7 @@ module.exports = {
                 'gray': '#808189',
                 'light-gray': '#E6E6E7',
                 'table-color': '#F6F6F7',
-                'red': '#CC1E1E',
+                'warning-color': '#CC1E1E',
                 'yellow': '#EAD621',
                 'light-yellow': 'rgba(234, 214, 33, 0.08)',
             },
