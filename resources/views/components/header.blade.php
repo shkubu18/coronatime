@@ -1,7 +1,7 @@
 <header class="flex items-center justify-between border-b-2 border-slate-50 md:px-20 p-4">
-    <x-logo color="text-teal"/>
+    <x-header.logo color="text-teal"/>
     <div class="flex">
-        <x-language-switcher />
+        <x-header.language-switcher />
 
         <div class="hidden sm:flex">
             <h1 class="font-semibold mx-4 border-r-2 border-light-gray pr-4">{{ ucwords(auth()->user()->username) }}</h1>
