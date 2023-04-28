@@ -2,7 +2,7 @@
     <div class="min-h-screen flex justify-between mx-2 md:m-0">
         <div class="w-full flex items-center flex-col py-6 lg:w-3/5 lg:items-start lg:pl-24 lg:mx-10">
             <div class="w-fit">
-                <x-logo class="mb-10" />
+                <x-header.logo class="mb-10" />
                 <h1 class="font-semibold text-2xl lg:text-3xl">{{ __('register.first_heading') }}</h1>
                 <p class="mt-2 text-gray text-lg lg:text-xl">{{ __('register.second_heading') }}</p>
                 <div class="md:w-96">
