@@ -1,6 +1,6 @@
 <x-layout>
     <x-hints.container>
-        <x-logo class="mb-0" />
+        <x-header.logo class="mb-0" />
 
         <div class="flex flex-col items-center sm:mt-56">
             <img src="{{ asset('assets/images/checkmark.gif') }}" alt="confirmation icon">

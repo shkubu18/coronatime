@@ -1,6 +1,6 @@
 <x-layout>
     <x-reset-password.main-container>
-        <x-logo class="w-fit" />
+        <x-header.logo class="w-fit" />
 
         <x-reset-password.container>
             <div>
