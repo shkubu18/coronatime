@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CovidStatisticController;
+use App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ use App\Http\Controllers\CovidStatisticController;
 Route::get('/', function () {
 	return redirect()->route('dashboard.worldwide');
 });
+
+// language
+Route::get('locale/{language}', [LanguageController::class, 'setLocale'])->name('locale.set');
 
 Route::middleware('guest')->group(function () {
 	// registration
