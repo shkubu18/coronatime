@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Password\ResetLinkRequest;
 use App\Http\Requests\Password\UpdatePasswordRequest;
+use App\Mail\ResetPassword;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -25,10 +26,7 @@ class ResetPasswordController extends Controller
 			'created_at' => Carbon::now(),
 		]);
 
-		Mail::send('emails.password-reset', ['token' => $token], function ($message) use ($request) {
-			$message->to($request->email);
-			$message->subject('Reset Password');
-		});
+		Mail::to($request->email)->send(new ResetPassword($token));
 
 		return redirect()->route('email.confirmation_sent');
 	}
