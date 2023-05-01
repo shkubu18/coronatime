@@ -67,10 +67,10 @@
 <body>
 <div>
     <img src="{{ asset('./assets/images/image-for-emails.png') }}" alt="dashboard">
-    <h1>Recover password</h1>
-    <h3>click this button to recover password</h3>
+    <h1>{{ __('sending-emails.password_confirmation') }}</h1>
+    <h3>{{ __('sending-emails.password_recover') }}</h3>
     <br>
-    <a href="{{ route('password.reset', $token) }}">Recover Password</a>
+    <a href="{{ route('password.reset', $token) }}">{{ __('sending-emails.password_recover_btn') }}</a>
 </div>
 </body>
 </html>

@@ -3,12 +3,12 @@
         class="text-lg mr-7 md:mr-16 pb-3 {{ request()->routeIs('dashboard.worldwide') ? ' border-b-4 border-black font-semibold ' : '' }}"
         href="{{ route('dashboard.worldwide') }}"
     >
-        Worldwide
+        {{ __('statistics.worldwide') }}
     </a>
     <a
         class="text-lg pb-3 {{ request()->routeIs('dashboard.by_country') ? ' border-b-4 border-black font-semibold ' : '' }}"
         href="{{ route('dashboard.by_country') }}"
     >
-        By country
+        {{ __('statistics.by_country') }}
     </a>
 </nav>
