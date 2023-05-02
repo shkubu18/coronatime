@@ -91,7 +91,7 @@ class AuthTest extends TestCase
 			'password'   => $password,
 		]);
 
-		$response->assertRedirectToRoute('dashboard.worldwide');
+		$response->assertRedirectToRoute('statistics.worldwide');
 	}
 
 	public function test_auth_should_remember_user_if_user_checked_remember_checkbox(): void
@@ -110,7 +110,7 @@ class AuthTest extends TestCase
 			'remember'   => 'on',
 		]);
 
-		$response->assertRedirectToRoute('dashboard.worldwide');
+		$response->assertRedirectToRoute('statistics.worldwide');
 		$this->assertNotNull(auth()->user()->remember_token);
 	}
 

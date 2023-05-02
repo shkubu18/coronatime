@@ -11,7 +11,7 @@ class CovidStatisticController extends Controller
 {
 	public function worldwideStatistics(): View
 	{
-		return view('user.dashboard.worldwide', [
+		return view('user.statistics.worldwide', [
 			'totalNumbers'   => $this->getTotalNumbers(),
 		]);
 	}
@@ -23,7 +23,7 @@ class CovidStatisticController extends Controller
 		$query->search($request->input('search'));
 		$query->sort($request->input('sort_by', 'location'), $request->input('sort_order', 'asc'));
 
-		return view('user.dashboard.by-country', [
+		return view('user.statistics.by-country', [
 			'countries'      => $query->get(),
 			'totalNumbers'   => $this->getTotalNumbers(),
 		]);

@@ -69,9 +69,7 @@
         <h1>{{ __('sending-emails.email_confirmation') }}</h1>
         <h3>{{ __('sending-emails.email_verify') }}</h3>
         <br>
-        @if(isset($verificationUrl))
-            <a href="{{ $verificationUrl }}">{{ __('sending-emails.email_verify_btn') }}</a>
-        @endif
+        <a href="{{ $verificationUrl }}">{{ __('sending-emails.email_verify_btn') }}</a>
     </div>
 </body>
 </html>
