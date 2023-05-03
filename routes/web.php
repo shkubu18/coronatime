@@ -43,11 +43,13 @@ Route::middleware('guest')->group(function () {
 	Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 	// password reset
-	Route::view('/forgot-password', 'reset-password.forgot-password')->name('password.request');
-	Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('password.email');
-	Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
-	Route::post('/password/reset', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
-	Route::view('/password-updated', 'reset-password.password-updated')->name('password.updated');
+	Route::prefix('password')->group(function () {
+		Route::view('forgot', 'reset-password.forgot-password')->name('password.request');
+		Route::post('forgot', [ResetPasswordController::class, 'sendResetLink'])->name('password.email');
+		Route::get('reset/{token}', [ResetPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
+		Route::post('reset', [ResetPasswordController::class, 'updatePassword'])->name('password.update');
+		Route::view('updated', 'reset-password.password-updated')->name('password.updated');
+	});
 });
 
 Route::middleware('auth')->group(function () {
@@ -55,6 +57,8 @@ Route::middleware('auth')->group(function () {
 	Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 	//statistics
-	Route::get('/statistics/worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('statistics.worldwide');
-	Route::get('/statistics/by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('statistics.by_country');
+	Route::prefix('statistics')->group(function () {
+		Route::get('worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('statistics.worldwide');
+		Route::get('by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('statistics.by_country');
+	});
 });
