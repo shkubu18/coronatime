@@ -18,7 +18,7 @@ class ResetPasswordTest extends TestCase
 
 	public function test_the_forgot_password_page_is_accessible(): void
 	{
-		$response = $this->get('/forgot-password');
+		$response = $this->get('/password/forgot');
 		$response->assertSuccessful();
 		$response->assertSee(__('reset-password.reset_password'));
 		$response->assertViewIs('reset-password.forgot-password');
@@ -26,14 +26,14 @@ class ResetPasswordTest extends TestCase
 
 	public function test_reset_password_should_give_us_email_error_if_email_input_is_not_provided(): void
 	{
-		$response = $this->post('/forgot-password');
+		$response = $this->post('/password/forgot');
 
 		$response->assertSessionHasErrors(['email']);
 	}
 
 	public function test_reset_password_should_give_us_email_error_if_user_does_not_exists_with_similar_email(): void
 	{
-		$response = $this->post('/forgot-password', ['email' => 'doesnotexists@gmail.com']);
+		$response = $this->post('/password/forgot', ['email' => 'doesnotexists@gmail.com']);
 
 		$response->assertSessionHasErrors(['email']);
 	}
@@ -42,28 +42,28 @@ class ResetPasswordTest extends TestCase
 	{
 		$user = User::factory()->create();
 
-		$response = $this->post('/forgot-password', ['email' => $user->email]);
+		$response = $this->post('/password/forgot', ['email' => $user->email]);
 
 		$response->assertRedirectToRoute('email.confirmation_sent');
 	}
 
 	public function test_reset_password_should_give_us_password_error_if_password_input_is_not_provided(): void
 	{
-		$response = $this->post('/reset-password');
+		$response = $this->post('/password/reset');
 
 		$response->assertSessionHasErrors(['password']);
 	}
 
 	public function test_reset_password_should_give_us_password_confirmation_error_if_password_confirmation_input_is_not_provided_when_password_input_is_exists(): void
 	{
-		$response = $this->post('/reset-password', ['password' => 'testing-password']);
+		$response = $this->post('/password/reset', ['password' => 'testing-password']);
 
 		$response->assertSessionHasErrors(['password_confirmation']);
 	}
 
 	public function test_reset_password_should_give_us_password_error_if_password_input_is_less_than_three(): void
 	{
-		$response = $this->post('/reset-password', [
+		$response = $this->post('/password/reset', [
 			'password'              => 'te',
 			'password_confirmation' => 'te',
 		]);
@@ -73,7 +73,7 @@ class ResetPasswordTest extends TestCase
 
 	public function test_reset_password_should_give_us_password_confirmation_error_if_password_confirmation_input_does_not_much_password_input(): void
 	{
-		$response = $this->post('/reset-password', [
+		$response = $this->post('/password/reset', [
 			'password'              => 'testing-password',
 			'password_confirmation' => 'does-not-much',
 		]);
@@ -87,7 +87,7 @@ class ResetPasswordTest extends TestCase
 
 		$user = User::factory()->create();
 
-		$response = $this->post('/forgot-password', ['email' => $user->email]);
+		$response = $this->post('/password/forgot', ['email' => $user->email]);
 
 		Mail::assertSent(ResetPassword::class, function ($mail) use ($user) {
 			$mail->build();
@@ -112,7 +112,7 @@ class ResetPasswordTest extends TestCase
 			'created_at' => Carbon::now(),
 		]);
 
-		$response = $this->get('/reset-password/' . $token);
+		$response = $this->get('/password/reset/' . $token);
 		$response->assertSuccessful();
 	}
 
@@ -127,10 +127,10 @@ class ResetPasswordTest extends TestCase
 			'created_at' => Carbon::now(),
 		]);
 
-		$response = $this->get('/reset-password/' . $token);
+		$response = $this->get('/password/reset/' . $token);
 		$response->assertSuccessful();
 
-		$response = $this->post('/reset-password', [
+		$response = $this->post('/password/reset', [
 			'token'                 => $token,
 			'password'              => 'new-password',
 			'password_confirmation' => 'new-password',
@@ -148,7 +148,7 @@ class ResetPasswordTest extends TestCase
 
 	public function test_if_token_does_not_exists_when_user_try_to_update_password_it_should_return_403_error(): void
 	{
-		$response = $this->post('reset-password', [
+		$response = $this->post('/password/reset', [
 			'password'              => 'new-password',
 			'password_confirmation' => 'new-password',
 		]);
