@@ -20,7 +20,7 @@ use App\Http\Controllers\LanguageController;
 */
 
 Route::get('/', function () {
-	return redirect()->route('dashboard.worldwide');
+	return redirect()->route('statistics.worldwide');
 });
 
 // language
@@ -55,6 +55,6 @@ Route::middleware('auth')->group(function () {
 	Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 	//statistics
-	Route::get('/statistics/worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('dashboard.worldwide');
-	Route::get('/statistics/by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('dashboard.by_country');
+	Route::get('/statistics/worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('statistics.worldwide');
+	Route::get('/statistics/by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('statistics.by_country');
 });

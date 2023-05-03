@@ -28,7 +28,7 @@ class AuthController extends Controller
 
 		session()->regenerate();
 
-		return redirect()->route('dashboard.worldwide');
+		return redirect()->route('statistics.worldwide');
 	}
 
 	public function logout(): RedirectResponse

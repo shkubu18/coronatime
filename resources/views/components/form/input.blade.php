@@ -14,17 +14,7 @@
             value="{{ old($name) }}"
             {{ $attributes }}
         >
-        <img
-            class="h-4 absolute top-4 right-3
-            @if($name === 'login')
-            {{ old($name) && !$errors->has('auth_fail') ? 'block' : 'hidden' }}
-            {{ old($name) && !$errors->has('email_verify') ? 'block' : 'hidden' }}
-            @else
-            {{ old($name) && !$errors->has($name) ? 'block' : 'hidden' }}
-            @endif"
-            src="{{ asset('./assets/icons/input-checkmark.png') }}"
-            alt="checkmark icon"
-        >
+        <x-form.validation-passed-icon name="{{ $name }}" />
     </div>
 
     @if (isset($hint) && $hint === 'sing_up' && !$errors->has('username'))
