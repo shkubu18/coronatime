@@ -16,7 +16,7 @@
                 alt="menu bar"
             />
             <div x-show="show" style="display: none" class="absolute bg-teal text-white text-center right-3 top-16 rounded px-4 py-2">
-                <a @click="show = !show" href="#">{{ __('header.logout') }}</a>
+                <a @click="show = !show" href="{{ route('logout') }}">{{ __('header.logout') }}</a>
             </div>
         </div>
     </div>
