@@ -101,6 +101,21 @@ class ResetPasswordTest extends TestCase
 		$response->assertRedirectToRoute('email.confirmation_sent');
 	}
 
+	public function test_reset_password_should_give_us_email_error_if_reset_link_is_already_sent_to_user(): void
+	{
+		$user = User::factory()->create();
+
+		DB::table('password_reset_tokens')->insert([
+			'email'      => $user->email,
+			'token'      => Str::random(64),
+			'created_at' => Carbon::now(),
+		]);
+
+		$response = $this->post('/password/forgot/', ['email' => $user->email]);
+
+		$response->assertSessionHasErrors(['email']);
+	}
+
 	public function test_user_shoud_be_redirected_to_reset_password_page_when_user_click_password_reset_buttton_from_received_email(): void
 	{
 		$user = User::factory()->create();
