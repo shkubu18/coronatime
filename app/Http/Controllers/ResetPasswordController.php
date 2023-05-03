@@ -52,7 +52,7 @@ class ResetPasswordController extends Controller
 
 		$userEmail = DB::table('password_reset_tokens')->first()->email;
 
-		$user = User::where('email', $userEmail)->update(['password' => bcrypt($request->password)]);
+		$user = User::where('email', $userEmail)->firstOrFail()->update(['password' => $request->password]);
 
 		DB::table('password_reset_tokens')->where(['token' => $request->token])->delete();
 
