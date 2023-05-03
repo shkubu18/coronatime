@@ -18,6 +18,13 @@ class ResetPasswordController extends Controller
 {
 	public function sendResetLink(ResetLinkRequest $request): RedirectResponse
 	{
+		$existingEmail = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+
+		if ($existingEmail)
+		{
+			return back()->withErrors(['email' => __('reset-password.reset_link_already_sended')]);
+		}
+
 		$token = Str::random(64);
 
 		DB::table('password_reset_tokens')->insert([
