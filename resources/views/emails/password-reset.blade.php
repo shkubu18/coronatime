@@ -23,7 +23,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
                 <tr>
                     <td align="center" bgcolor="#0FBA68" style="border-radius: 6px;">
-                        <a href="https://localhost:8080/password/reset/{{$token}}" target="_blank" style="color: #ffffff; display: inline-block; font-size: 16px; font-weight: bold; padding: 12px 24px; text-decoration: none; text-transform: uppercase;">{{ __('sending-emails.password_recover_btn') }}</a>
+                        <a href="{{ route('password.reset', $token) }}" target="_blank" style="color: #ffffff; display: inline-block; font-size: 16px; font-weight: bold; padding: 12px 24px; text-decoration: none; text-transform: uppercase;">{{ __('sending-emails.password_recover_btn') }}</a>
                     </td>
                 </tr>
             </table>
