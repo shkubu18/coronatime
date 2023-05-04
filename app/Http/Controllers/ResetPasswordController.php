@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Password\ResetLinkRequest;
+use App\Http\Requests\Password\ResetPasswordLinkRequest;
 use App\Http\Requests\Password\UpdatePasswordRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
-	public function sendResetLink(ResetLinkRequest $request): RedirectResponse
+	public function sendPasswordResetLink(ResetPasswordLinkRequest $request): RedirectResponse
 	{
 		$existingEmail = DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
