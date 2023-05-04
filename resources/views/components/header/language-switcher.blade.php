@@ -7,7 +7,7 @@
         <a
             @click="show = !show"
             class="p-1 text-center hover:bg-blue duration-300 hover:rounded"
-            href="{{ route('locale.set', ['language' => app()->getLocale() === 'en' ? 'ka' : 'en']) }}"
+            href="{{ route('locale', ['language' => app()->getLocale() === 'en' ? 'ka' : 'en']) }}"
         >
             {{ app()->getLocale() === 'en' ? __('header.georgia') : __('header.english') }}
         </a>
