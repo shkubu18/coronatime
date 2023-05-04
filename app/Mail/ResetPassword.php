@@ -10,8 +10,6 @@ class ResetPassword extends Mailable
 {
 	use Queueable, SerializesModels;
 
-	use Queueable, SerializesModels;
-
 	/**
 	 * The password reset token.
 	 *
