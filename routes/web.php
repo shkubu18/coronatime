@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -29,7 +28,7 @@ Route::get('locale/{language}', [LanguageController::class, 'setLocale'])->name(
 Route::middleware('guest')->group(function () {
 	// registration
 	Route::view('/registration', 'register.create')->name('register.page');
-	Route::post('/registration', [RegistrationController::class, 'createUser'])->name('register.create');
+	Route::post('/registration', [AuthController::class, 'register'])->name('register.create');
 
 	// email verification
 	Route::prefix('email')->group(function () {
