@@ -27,7 +27,7 @@ Route::get('locale/{language}', [LanguageController::class, 'setLocale'])->name(
 
 Route::middleware('guest')->group(function () {
 	// registration
-	Route::view('/registration', 'register.create')->name('register.page');
+	Route::view('/registration', 'register.create')->name('register.show');
 	Route::post('/registration', [AuthController::class, 'register'])->name('register.create');
 
 	// email verification
