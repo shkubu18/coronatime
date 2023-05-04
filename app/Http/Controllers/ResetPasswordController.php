@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Password\ResetPasswordLinkRequest;
-use App\Http\Requests\Password\UpdatePasswordRequest;
+use App\Http\Requests\ResetPasswordLinkRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
 use Carbon\Carbon;
