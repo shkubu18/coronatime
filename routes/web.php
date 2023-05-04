@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 // language
-Route::get('locale/{language}', [LanguageController::class, 'setLocale'])->name('locale.set');
+Route::get('locale/{language}', [LanguageController::class, 'setLocale'])->name('locale');
 
 Route::middleware('guest')->group(function () {
 	// registration
