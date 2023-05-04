@@ -21,37 +21,37 @@ class AuthTest extends TestCase
 	public function test_auth_should_give_us_errors_if_input_is_not_provided(): void
 	{
 		$response = $this->post('/login');
-		$response->assertSessionHasErrors(['login', 'password']);
+		$response->assertSessionHasErrors(['username_or_email', 'password']);
 	}
 
 	public function test_auth_should_give_us_username_error_if_login_input_is_not_provided(): void
 	{
 		$response = $this->post('/login', ['password' => 'testing-password']);
-		$response->assertSessionHasErrors(['login']);
+		$response->assertSessionHasErrors(['username_or_email']);
 	}
 
 	public function test_auth_should_give_us_password_error_if_password_input_is_not_provided(): void
 	{
-		$response = $this->post('/login', ['login' => 'data shkubuliani']);
+		$response = $this->post('/login', ['username_or_email' => 'data shkubuliani']);
 		$response->assertSessionHasErrors(['password']);
 	}
 
 	public function test_auth_should_give_us_login_input_error_if_login_input_is_less_then_three(): void
 	{
 		$response = $this->post('/login', [
-			'login'    => 'da',
-			'password' => 'testing-password',
+			'username_or_email'    => 'da',
+			'password'             => 'testing-password',
 		]);
 
-		$response->assertSessionHasErrors(['login']);
+		$response->assertSessionHasErrors(['username_or_email']);
 	}
 
 	public function test_auth_should_give_us_auth_fail_error_if_such_user_does_not_exists(): void
 	{
 		$response = $this->post('/login', [
-			'login_type' => 'email',
-			'login'      => 'nonexistentuser@example.com',
-			'password'   => 'testing-password',
+			'login_type'             => 'email',
+			'username_or_email'      => 'nonexistentuser@example.com',
+			'password'               => 'testing-password',
 		]);
 
 		$response->assertSessionHasErrors(['auth_fail']);
@@ -69,8 +69,8 @@ class AuthTest extends TestCase
 		]);
 
 		$response = $this->post('/login', [
-			'login'      => $username,
-			'password'   => $password,
+			'username_or_email'      => $username,
+			'password'               => $password,
 		]);
 
 		$response->assertSessionHasErrors(['email_verify']);
@@ -87,8 +87,8 @@ class AuthTest extends TestCase
 		]);
 
 		$response = $this->post('/login', [
-			'login'      => $username,
-			'password'   => $password,
+			'username_or_email'      => $username,
+			'password'               => $password,
 		]);
 
 		$response->assertRedirectToRoute('statistics.worldwide');
@@ -105,9 +105,9 @@ class AuthTest extends TestCase
 		]);
 
 		$response = $this->post('/login', [
-			'login'      => $username,
-			'password'   => $password,
-			'remember'   => 'on',
+			'username_or_email'      => $username,
+			'password'               => $password,
+			'remember'               => 'on',
 		]);
 
 		$response->assertRedirectToRoute('statistics.worldwide');

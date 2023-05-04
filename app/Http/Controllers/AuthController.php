@@ -11,14 +11,14 @@ class AuthController extends Controller
 {
 	public function login(LoginRequest $request): RedirectResponse
 	{
-		if (!auth()->attempt([$request->login_type => $request->login, 'password' => $request->password], $request->remember))
+		if (!auth()->attempt([$request->login_type => $request->username_or_email, 'password' => $request->password], $request->remember))
 		{
 			throw ValidationException::withMessages([
 				'auth_fail' => 'Email or password is incorrect.',
 			]);
 		}
 
-		if (!User::where($request->login_type, $request->login)->first()->hasVerifiedEmail())
+		if (!User::where($request->login_type, $request->username_or_email)->first()->hasVerifiedEmail())
 		{
 			auth()->logout();
 			throw ValidationException::withMessages([

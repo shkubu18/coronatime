@@ -10,7 +10,7 @@
                         @csrf
 
                         <x-form.input
-                            name="login"
+                            name="username_or_email"
                             type="text"
                             label="auth.username"
                             placeholder="{{ __('auth.username_placeholder') }}"
