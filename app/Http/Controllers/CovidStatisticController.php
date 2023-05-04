@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CountryFilterRequest;
 use App\Models\CovidStatistic;
 use App\Services\WorldwideStatisticService;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CovidStatisticController extends Controller
@@ -16,11 +16,11 @@ class CovidStatisticController extends Controller
 		]);
 	}
 
-	public function statisticsByCountry(Request $request): View
+	public function statisticsByCountry(CountryFilterRequest $request): View
 	{
 		$query = CovidStatistic::query();
 
-		$query->search($request->input('search'));
+		$query->search($request->search);
 		$query->sort($request->input('sort_by', 'location'), $request->input('sort_order', 'asc'));
 
 		return view('user.statistics.by-country', [
