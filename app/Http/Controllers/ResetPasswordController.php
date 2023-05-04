@@ -35,7 +35,7 @@ class ResetPasswordController extends Controller
 
 		Mail::to($request->email)->send(new ResetPassword($token));
 
-		return redirect()->route('email.confirmation_sent');
+		return redirect()->route('verification.email_sent');
 	}
 
 	public function showResetPasswordForm(string $token): View

@@ -44,6 +44,6 @@ class AuthController extends Controller
 	{
 		event(new Registered(User::create($request->validated())));
 
-		return redirect()->route('email.confirmation_sent');
+		return redirect()->route('verification.email_sent');
 	}
 }

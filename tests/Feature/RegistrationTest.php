@@ -129,7 +129,7 @@ class RegistrationTest extends TestCase
 			'password_confirmation' => $password,
 		]);
 
-		$response->assertRedirectToRoute('email.confirmation_sent');
+		$response->assertRedirectToRoute('verification.email_sent');
 
 		$user = User::where('email', $email)->first();
 

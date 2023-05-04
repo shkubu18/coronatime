@@ -44,7 +44,7 @@ class ResetPasswordTest extends TestCase
 
 		$response = $this->post('/password/forgot', ['email' => $user->email]);
 
-		$response->assertRedirectToRoute('email.confirmation_sent');
+		$response->assertRedirectToRoute('verification.email_sent');
 	}
 
 	public function test_reset_password_should_give_us_password_error_if_password_input_is_not_provided(): void
@@ -98,7 +98,7 @@ class ResetPasswordTest extends TestCase
 				   $mail->token === DB::table('password_reset_tokens')->first()->token;
 		});
 
-		$response->assertRedirectToRoute('email.confirmation_sent');
+		$response->assertRedirectToRoute('verification.email_sent');
 	}
 
 	public function test_reset_password_should_give_us_email_error_if_reset_link_is_already_sent_to_user(): void
