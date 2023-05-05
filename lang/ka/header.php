@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'georgia' => 'ქართული',
-	'english' => 'ინგლისური',
-	'logout'  => 'გამოსვლა',
+	'georgian' => 'ქართული',
+	'english'  => 'ინგლისური',
+	'logout'   => 'გამოსვლა',
 ];
