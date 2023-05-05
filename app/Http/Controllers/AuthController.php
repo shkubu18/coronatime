@@ -30,7 +30,7 @@ class AuthController extends Controller
 
 		session()->regenerate();
 
-		return redirect()->route('statistics.worldwide');
+		return redirect()->route('worldwide_statistics.show');
 	}
 
 	public function logout(): RedirectResponse

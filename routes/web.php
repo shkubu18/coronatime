@@ -19,7 +19,7 @@ use App\Http\Controllers\LanguageController;
 */
 
 Route::get('/', function () {
-	return redirect()->route('statistics.worldwide');
+	return redirect()->route('worldwide_statistics.show');
 });
 
 // language
@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
 
 	//statistics
 	Route::prefix('statistics')->group(function () {
-		Route::get('worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('statistics.worldwide');
-		Route::get('by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('statistics.by_country');
+		Route::get('worldwide', [CovidStatisticController::class, 'worldwideStatistics'])->name('worldwide_statistics.show');
+		Route::get('by-country', [CovidStatisticController::class, 'statisticsByCountry'])->name('by_country_statistics.show');
 	});
 });
