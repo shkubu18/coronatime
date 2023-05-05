@@ -8,9 +8,9 @@ use Illuminate\Http\RedirectResponse;
 
 class EmailVerificationController extends Controller
 {
-	public function verify($id): RedirectResponse
+	public function verify(string $token): RedirectResponse
 	{
-		event(new Verified(User::where('email_verification_token', $id)->firstOrFail()));
+		event(new Verified(User::where('email_verification_token', $token)->firstOrFail()));
 
 		return redirect()->route('verification.notice');
 	}

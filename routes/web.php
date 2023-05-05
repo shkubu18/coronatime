@@ -33,7 +33,7 @@ Route::middleware('guest')->group(function () {
 	// email verification
 	Route::prefix('email')->group(function () {
 		Route::view('confirmation-sent', 'verifications.email-confirmation-sent')->name('verification.email_sent');
-		Route::get('verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+		Route::get('verify/{token}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 		Route::view('verified', 'verifications.email-verified')->name('verification.notice');
 	});
 
