@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
-	public static function authenticate(LoginRequest $request)
+	public static function authenticate(LoginRequest $request): void
 	{
 		if (!auth()->attempt([$request->login_type => $request->username_or_email, 'password' => $request->password], $request->remember))
 		{
@@ -18,7 +18,7 @@ class AuthService
 		}
 	}
 
-	public static function checkEmailVerification(LoginRequest $request)
+	public static function checkEmailVerification(LoginRequest $request): void
 	{
 		if (!User::where($request->login_type, $request->username_or_email)->first()->hasVerifiedEmail())
 		{
