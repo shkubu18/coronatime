@@ -6,11 +6,9 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Mail\EmailVerification;
 use App\Models\User;
+use App\Services\VerificationUrlService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -47,16 +45,17 @@ class AuthController extends Controller
 	{
 		$user = User::create($request->validated());
 
-		$verificationUrl = URL::temporarySignedRoute(
-			'verification.verify',
-			Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-			[
-				'token'                            => $user->email_verification_token,
-				'hash'                             => sha1($user->getEmailForVerification()),
-			]
-		);
+		$verificationUrl = VerificationUrlService::generate($user);
 
-		Mail::to($user->email)->send(new EmailVerification($verificationUrl));
+		try
+		{
+			Mail::to($user->email)->send(new EmailVerification($verificationUrl));
+		}
+		catch (\Exception $e)
+		{
+			$user->delete();
+			return redirect()->back()->withErrors(['verify_email_send_fail' => __('sending-emails.email_confirmation_fail')]);
+		}
 
 		return redirect()->route('verification.email_sent');
 	}
