@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\EmailVerification;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -157,5 +158,34 @@ class RegistrationTest extends TestCase
 		]));
 
 		$response->assertSessionHasErrors('verify_email_send_fail');
+	}
+
+	public function test_register_should_send_email_verification_email_when_user_created_successfuly(): void
+	{
+		Mail::fake();
+
+		$username = 'name surname';
+		$email = 'example@gmail.com';
+		$password = 'testing-password';
+
+		$response = $this->post(route('register.create', [
+			'username'              => $username,
+			'email'                 => $email,
+			'password'              => $password,
+			'password_confirmation' => $password,
+		]));
+
+		$user = User::where('email', $email)->first();
+		$this->assertNotNull($user);
+
+		Mail::assertSent(EmailVerification::class, function ($mail) use ($user) {
+			$mail->build();
+
+			return $mail->hasTo($user->email) &&
+				$mail->subject === 'Verify your email address' &&
+				$mail->view === 'emails.verify-email';
+		});
+
+		$response->assertRedirectToRoute('verification.email_sent');
 	}
 }
