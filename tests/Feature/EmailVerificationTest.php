@@ -19,8 +19,8 @@ class EmailVerificationTest extends TestCase
 		Event::fake();
 
 		$response = $this->get(route('verification.verify', [
-			'id'   => $user->email_verification_token,
-			'hash' => hash('sha256', 'hashed-text'),
+			'token'   => $user->email_verification_token,
+			'hash'    => hash('sha256', 'hashed-text'),
 		]));
 
 		Event::assertDispatched(Verified::class);
