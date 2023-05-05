@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -136,5 +137,25 @@ class RegistrationTest extends TestCase
 		$this->assertNotNull($user);
 		$this->assertEquals($username, $user->username);
 		$this->assertTrue(Hash::check($password, $user->password));
+	}
+
+	public function test_register_should_return_email_send_error_message_if_sending_email_limitations_is_reached(): void
+	{
+		Mail::fake();
+
+		Mail::shouldReceive()->once()->andThrow(\Exception::class);
+
+		$username = 'name surname';
+		$email = 'example@gmail.com';
+		$password = 'testing-password';
+
+		$response = $this->post(route('register.create', [
+			'username'              => $username,
+			'email'                 => $email,
+			'password'              => $password,
+			'password_confirmation' => $password,
+		]));
+
+		$response->assertSessionHasErrors('verify_email_send_fail');
 	}
 }

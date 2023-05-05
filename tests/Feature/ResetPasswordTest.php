@@ -170,4 +170,17 @@ class ResetPasswordTest extends TestCase
 
 		$response->assertStatus(403);
 	}
+
+	public function test_reset_password_should_return_email_send_error_message_if_sending_email_limitations_is_reached(): void
+	{
+		Mail::fake();
+
+		Mail::shouldReceive()->once()->andThrow(\Exception::class);
+
+		$user = User::factory()->create();
+
+		$response = $this->post(route('password.email', ['email' => $user->email]));
+
+		$response->assertSessionHasErrors('password_reset_email_fail');
+	}
 }
