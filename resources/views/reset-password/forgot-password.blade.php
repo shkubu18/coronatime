@@ -15,6 +15,13 @@
                         placeholder="{{ __('reset-password.email_placeholder') }}"
                     />
 
+                    @error('password_reset_email_fail')
+                    <div class="flex items-center mt-2 ml-1">
+                        <img class="h-4 mr-3" src="{{ asset('./assets/icons/input-warning.png') }}" alt="warning icon">
+                        <p class="text-warning-color">{{ __($message) }}</p>
+                    </div>
+                    @enderror
+
                 </form>
             </div>
             <x-form.button form="reset-password" class="mt-0" >{{ __('reset-password.reset_password') }}</x-form.button>

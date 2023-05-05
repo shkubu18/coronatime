@@ -33,7 +33,15 @@ class ResetPasswordController extends Controller
 			'created_at' => Carbon::now(),
 		]);
 
-		Mail::to($request->email)->send(new ResetPassword($token));
+		try
+		{
+			Mail::to($request->email)->send(new ResetPassword($token));
+		}
+		catch (\Exception $e)
+		{
+			DB::table('password_reset_tokens')->delete();
+			return redirect()->back()->withErrors(['password_reset_email_fail' => __('sending-emails.password_reset_email_fail')]);
+		}
 
 		return redirect()->route('verification.email_sent');
 	}
