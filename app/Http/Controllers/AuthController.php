@@ -19,8 +19,7 @@ class AuthController extends Controller
 				'auth_fail' => 'Email or password is incorrect.',
 			]);
 		}
-
-		if (!User::where($request->login_type, $request->username_or_email)->first()->hasVerifiedEmail())
+		elseif (!User::where($request->login_type, $request->username_or_email)->first()->hasVerifiedEmail())
 		{
 			auth()->logout();
 			throw ValidationException::withMessages([
