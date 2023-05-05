@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
+use App\Mail\EmailVerification;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -41,7 +45,18 @@ class AuthController extends Controller
 
 	public function register(RegistrationRequest $request): RedirectResponse
 	{
-		event(new Registered(User::create($request->validated())));
+		$user = User::create($request->validated());
+
+		$verificationUrl = URL::temporarySignedRoute(
+			'verification.verify',
+			Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+			[
+				'token'                            => $user->email_verification_token,
+				'hash'                             => sha1($user->getEmailForVerification()),
+			]
+		);
+
+		Mail::to($user->email)->send(new EmailVerification($verificationUrl));
 
 		return redirect()->route('verification.email_sent');
 	}
