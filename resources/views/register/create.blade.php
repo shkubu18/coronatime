@@ -35,6 +35,13 @@
                             placeholder="{{ __('register.repeat_password') }}"
                         />
 
+                        @error('verify_email_send_fail')
+                        <div class="flex items-center mt-2 ml-1">
+                            <img class="h-4 mr-3" src="{{ asset('./assets/icons/input-warning.png') }}" alt="warning icon">
+                            <p class="text-warning-color">{{ __($message) }}</p>
+                        </div>
+                        @enderror
+
                         <x-form.button>{{ __('register.sign_up') }}</x-form.button>
                     </form>
                     <div class="flex justify-center">
