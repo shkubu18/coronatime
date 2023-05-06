@@ -12,7 +12,7 @@
                        value="{{ request()->query('search') }}"
                 >
             </form>
-            <img class="absolute top-3.5 sm:top-4 left-4 sm:left-6" src="{{ asset('assets/icons/search-icon.png') }}" alt="search icon">
+        <x-statistics.input-search-svg />
         </div>
         <x-statistics.by-country
             :countries="$countries"

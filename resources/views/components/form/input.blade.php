@@ -14,7 +14,7 @@
             value="{{ old($name) }}"
             {{ $attributes }}
         >
-        <x-form.validation-passed-icon name="{{ $name }}" />
+        <x-form.validation-passed-svg name="{{ $name }}" />
     </div>
 
     @if (isset($hint) && $hint === 'sing_up' && !$errors->has('username'))
