@@ -24,14 +24,14 @@
 
                         @error('auth_fail')
                         <div class="flex items-center mb-5 ml-1">
-                            <img class="h-4 mr-3" src="{{ asset('./assets/icons/input-warning.png') }}" alt="warning icon">
+                            <x-form.warning-svg />
                             <p class="text-red-700">{{ __('auth.auth_fail') }}</p>
                         </div>
                         @enderror
                         @error('email_verify')
                         <div class="flex items-center mb-5 ml-1">
-                            <img class="h-4 mr-3" src="{{ asset('./assets/icons/input-warning.png') }}" alt="warning icon">
-                            <p class="text-red-700">{{ $message }}</p>
+                            <x-form.warning-svg />
+                            <p class="text-red-700">{{ __('auth.email_verify') }}</p>
                         </div>
                         @enderror
 
