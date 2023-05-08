@@ -10,7 +10,7 @@
                         @csrf
 
                         <x-form.input
-                            name="login"
+                            name="username_or_email"
                             type="text"
                             label="auth.username"
                             placeholder="{{ __('auth.username_placeholder') }}"
@@ -41,7 +41,7 @@
                     </form>
                     <div class="flex justify-center">
                         <p class="mr-1 text-gray">{{ __('auth.dont_have_account') }}</p>
-                        <a class="ml-1 font-semibold" href="{{ route('register.page') }}">{{ __('auth.sign_up') }}</a>
+                        <a class="ml-1 font-semibold" href="{{ route('register.show') }}">{{ __('auth.sign_up') }}</a>
                     </div>
                 </div>
             </div>

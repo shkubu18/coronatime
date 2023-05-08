@@ -23,7 +23,7 @@ class CovidStatisticTest extends TestCase
 			'deaths'       => 10,
 		]);
 
-		$response = $this->actingAs($user)->get('/statistics/worldwide');
+		$response = $this->actingAs($user)->get(route('worldwide_statistics.show'));
 
 		$response->assertStatus(200);
 
@@ -42,7 +42,7 @@ class CovidStatisticTest extends TestCase
 			'deaths'       => 10,
 		]);
 
-		$response = $this->actingAs($user)->get('/statistics/by-country');
+		$response = $this->actingAs($user)->get(route('by_country_statistics.show'));
 
 		$response->assertStatus(200);
 

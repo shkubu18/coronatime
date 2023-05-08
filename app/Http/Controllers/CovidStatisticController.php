@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CountryFilterRequest;
 use App\Models\CovidStatistic;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Services\WorldwideStatisticService;
 use Illuminate\View\View;
 
 class CovidStatisticController extends Controller
@@ -12,34 +12,18 @@ class CovidStatisticController extends Controller
 	public function worldwideStatistics(): View
 	{
 		return view('user.statistics.worldwide', [
-			'totalNumbers'   => $this->getTotalNumbers(),
+			'totalNumbers'   => WorldwideStatisticService::getTotalNumbers(),
 		]);
 	}
 
-	public function statisticsByCountry(Request $request): View
+	public function statisticsByCountry(CountryFilterRequest $request): View
 	{
-		$query = CovidStatistic::query();
-
-		$query->search($request->input('search'));
-		$query->sort($request->input('sort_by', 'location'), $request->input('sort_order', 'asc'));
+		$query = CovidStatistic::search($request->search)
+			->sort($request->input('sort_by', 'location'), $request->input('sort_order', 'asc'));
 
 		return view('user.statistics.by-country', [
 			'countries'      => $query->get(),
-			'totalNumbers'   => $this->getTotalNumbers(),
+			'totalNumbers'   => WorldwideStatisticService::getTotalNumbers(),
 		]);
-	}
-
-	private function getTotalNumbers(): array
-	{
-		$totalNumbers = DB::table('covid_statistics')
-			->select(DB::raw('SUM(confirmed) as total_cases, SUM(recovered) as total_recovered, SUM(deaths) as total_deaths'))
-			->get()
-			->first();
-
-		return [
-			'totalCases'     => number_format($totalNumbers->total_cases),
-			'totalRecovered' => number_format($totalNumbers->total_recovered),
-			'totalDeaths'    => number_format($totalNumbers->total_deaths),
-		];
 	}
 }

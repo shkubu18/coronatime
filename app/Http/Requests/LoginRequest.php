@@ -9,15 +9,15 @@ class LoginRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'login'      => 'required|min:3',
-			'login_type' => 'required',
-			'password'   => 'required',
+			'username_or_email'        => 'required|min:3',
+			'login_type'               => 'required',
+			'password'                 => 'required',
 		];
 	}
 
 	protected function prepareForValidation()
 	{
-		$loginType = filter_var($this->login, FILTER_VALIDATE_EMAIL)
+		$loginType = filter_var($this->username_or_email, FILTER_VALIDATE_EMAIL)
 			? 'email'
 			: 'username';
 

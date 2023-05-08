@@ -6,13 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ResetPassword extends Mailable
+class EmailVerification extends Mailable
 {
 	use Queueable, SerializesModels;
 
-	public function __construct(public string $token)
+	public function __construct(public string $verificationUrl)
 	{
-		$this->token = $token;
+		$this->verificationUrl = $verificationUrl;
 	}
 
 	/**
@@ -22,7 +22,7 @@ class ResetPassword extends Mailable
 	 */
 	public function build()
 	{
-		return $this->view('emails.password-reset')
-			->subject('Reset Password');
+		return $this->view('emails.verify-email')
+			->subject('Verify your email address');
 	}
 }

@@ -18,7 +18,7 @@ class ResetPasswordTest extends TestCase
 
 	public function test_the_forgot_password_page_is_accessible(): void
 	{
-		$response = $this->get('/password/forgot');
+		$response = $this->get(route('password.request'));
 		$response->assertSuccessful();
 		$response->assertSee(__('reset-password.reset_password'));
 		$response->assertViewIs('reset-password.forgot-password');
@@ -26,14 +26,14 @@ class ResetPasswordTest extends TestCase
 
 	public function test_reset_password_should_give_us_email_error_if_email_input_is_not_provided(): void
 	{
-		$response = $this->post('/password/forgot');
+		$response = $this->post(route('password.email'));
 
 		$response->assertSessionHasErrors(['email']);
 	}
 
 	public function test_reset_password_should_give_us_email_error_if_user_does_not_exists_with_similar_email(): void
 	{
-		$response = $this->post('/password/forgot', ['email' => 'doesnotexists@gmail.com']);
+		$response = $this->post(route('password.email', ['email' => 'doesnotexists@gmail.com']));
 
 		$response->assertSessionHasErrors(['email']);
 	}
@@ -42,41 +42,41 @@ class ResetPasswordTest extends TestCase
 	{
 		$user = User::factory()->create();
 
-		$response = $this->post('/password/forgot', ['email' => $user->email]);
+		$response = $this->post(route('password.email', ['email' => $user->email]));
 
-		$response->assertRedirectToRoute('email.confirmation_sent');
+		$response->assertRedirectToRoute('verification.email_sent');
 	}
 
 	public function test_reset_password_should_give_us_password_error_if_password_input_is_not_provided(): void
 	{
-		$response = $this->post('/password/reset');
+		$response = $this->post(route('password.update'));
 
 		$response->assertSessionHasErrors(['password']);
 	}
 
 	public function test_reset_password_should_give_us_password_confirmation_error_if_password_confirmation_input_is_not_provided_when_password_input_is_exists(): void
 	{
-		$response = $this->post('/password/reset', ['password' => 'testing-password']);
+		$response = $this->post(route('password.update', ['password' => 'testing-password']));
 
 		$response->assertSessionHasErrors(['password_confirmation']);
 	}
 
 	public function test_reset_password_should_give_us_password_error_if_password_input_is_less_than_three(): void
 	{
-		$response = $this->post('/password/reset', [
+		$response = $this->post(route('password.update', [
 			'password'              => 'te',
 			'password_confirmation' => 'te',
-		]);
+		]));
 
 		$response->assertSessionHasErrors(['password']);
 	}
 
 	public function test_reset_password_should_give_us_password_confirmation_error_if_password_confirmation_input_does_not_much_password_input(): void
 	{
-		$response = $this->post('/password/reset', [
+		$response = $this->post(route('password.update', [
 			'password'              => 'testing-password',
 			'password_confirmation' => 'does-not-much',
-		]);
+		]));
 
 		$response->assertSessionHasErrors(['password_confirmation']);
 	}
@@ -87,7 +87,7 @@ class ResetPasswordTest extends TestCase
 
 		$user = User::factory()->create();
 
-		$response = $this->post('/password/forgot', ['email' => $user->email]);
+		$response = $this->post(route('password.email', ['email' => $user->email]));
 
 		Mail::assertSent(ResetPassword::class, function ($mail) use ($user) {
 			$mail->build();
@@ -98,7 +98,7 @@ class ResetPasswordTest extends TestCase
 				   $mail->token === DB::table('password_reset_tokens')->first()->token;
 		});
 
-		$response->assertRedirectToRoute('email.confirmation_sent');
+		$response->assertRedirectToRoute('verification.email_sent');
 	}
 
 	public function test_reset_password_should_give_us_email_error_if_reset_link_is_already_sent_to_user(): void
@@ -111,7 +111,7 @@ class ResetPasswordTest extends TestCase
 			'created_at' => Carbon::now(),
 		]);
 
-		$response = $this->post('/password/forgot/', ['email' => $user->email]);
+		$response = $this->post(route('password.email', ['email' => $user->email]));
 
 		$response->assertSessionHasErrors(['email']);
 	}
@@ -127,7 +127,7 @@ class ResetPasswordTest extends TestCase
 			'created_at' => Carbon::now(),
 		]);
 
-		$response = $this->get('/password/reset/' . $token);
+		$response = $this->get(route('password.reset', ['token' => $token]));
 		$response->assertSuccessful();
 	}
 
@@ -142,14 +142,14 @@ class ResetPasswordTest extends TestCase
 			'created_at' => Carbon::now(),
 		]);
 
-		$response = $this->get('/password/reset/' . $token);
+		$response = $this->get(route('password.reset', ['token' => $token]));
 		$response->assertSuccessful();
 
-		$response = $this->post('/password/reset', [
+		$response = $this->post(route('password.update', [
 			'token'                 => $token,
 			'password'              => 'new-password',
 			'password_confirmation' => 'new-password',
-		]);
+		]));
 
 		$this->assertTrue(Hash::check('new-password', $user->fresh()->password));
 
@@ -163,11 +163,24 @@ class ResetPasswordTest extends TestCase
 
 	public function test_if_token_does_not_exists_when_user_try_to_update_password_it_should_return_403_error(): void
 	{
-		$response = $this->post('/password/reset', [
+		$response = $this->post(route('password.update', [
 			'password'              => 'new-password',
 			'password_confirmation' => 'new-password',
-		]);
+		]));
 
 		$response->assertStatus(403);
+	}
+
+	public function test_reset_password_should_return_email_send_error_message_if_sending_email_limitations_is_reached(): void
+	{
+		Mail::fake();
+
+		Mail::shouldReceive()->once()->andThrow(\Exception::class);
+
+		$user = User::factory()->create();
+
+		$response = $this->post(route('password.email', ['email' => $user->email]));
+
+		$response->assertSessionHasErrors('password_reset_email_fail');
 	}
 }

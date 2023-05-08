@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Password\ResetLinkRequest;
-use App\Http\Requests\Password\UpdatePasswordRequest;
+use App\Http\Requests\ResetPasswordLinkRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Mail\ResetPassword;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordController extends Controller
 {
-	public function sendResetLink(ResetLinkRequest $request): RedirectResponse
+	public function sendPasswordResetLink(ResetPasswordLinkRequest $request): RedirectResponse
 	{
 		$existingEmail = DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
@@ -33,9 +33,17 @@ class ResetPasswordController extends Controller
 			'created_at' => Carbon::now(),
 		]);
 
-		Mail::to($request->email)->send(new ResetPassword($token));
+		try
+		{
+			Mail::to($request->email)->send(new ResetPassword($token));
+		}
+		catch (\Exception $e)
+		{
+			DB::table('password_reset_tokens')->delete();
+			return redirect()->back()->withErrors(['password_reset_email_fail' => __('sending-emails.password_reset_email_fail')]);
+		}
 
-		return redirect()->route('email.confirmation_sent');
+		return redirect()->route('verification.email_sent');
 	}
 
 	public function showResetPasswordForm(string $token): View

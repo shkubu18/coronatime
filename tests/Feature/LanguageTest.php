@@ -15,7 +15,7 @@ class LanguageTest extends TestCase
 	{
 		$language = 'ka';
 
-		$response = $this->get('/locale/' . $language, ['language' => $language]);
+		$response = $this->get(route('locale', ['language' => $language]));
 
 		$response->assertRedirect();
 

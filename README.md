@@ -20,24 +20,24 @@ The application supports two languages, Georgian and English.
 * [Configuration](#configuration)
 * [Development](#development)
 * [Database Structure](#database-structure)
-* [Live Deployment](#live-deployment)
+* [Live Deployment](#live-deployment) 
 
 
 #
 ## Prerequisites
 
-* <img src="readme/assets/php.svg" width="35" style="position: relative; top: 5px" />&nbsp;&nbsp;*PHP@8.2 and up*
-* <img src="readme/assets/mysql.png" width="35" style="position: relative; top: 4px" />&nbsp;&nbsp;*MYSQL@8 and up*
-* <img src="readme/assets/npm.png" width="35" style="position: relative; top: 4px" />&nbsp;&nbsp;*npm@6 and up*
-* <img src="readme/assets/composer.png" width="35" style="position: relative; top: 6px" />&nbsp;&nbsp;*composer@2.4 and up*
+* <img src="public/readme/assets/php.svg" width="35" style="position: relative; top: 5px" />&nbsp;&nbsp;*PHP@8.2 and up*
+* <img src="public/readme/assets/mysql.png" width="35" style="position: relative; top: 4px" />&nbsp;&nbsp;*MYSQL@8 and up*
+* <img src="public/readme/assets/npm.png" width="35" style="position: relative; top: 4px" />&nbsp;&nbsp;*npm@6 and up*
+* <img src="public/readme/assets/composer.png" width="35" style="position: relative; top: 6px" />&nbsp;&nbsp;*composer@2.4 and up*
 
 
 #
 
 ## Tech Stack
-- <img src="readme/assets/laravel.png" height="18" style="position: relative; top: 5px" />&nbsp;[Laravel@10.x](https://laravel.com/docs/8.x) - back-end framework
-- <img src="readme/assets/tailwind.png" height="18" style="position: relative; top: 5px" />&nbsp;[TailwindCSS](https://tailwindcss.com/) - css framework for styles
-- <img src="readme/assets/spatie.png" height="19" style="position: relative; top: 4px" />&nbsp;[Spatie Translatable](https://github.com/spatie/laravel-translatable) - package for translation
+- <img src="public/readme/assets/laravel.png" height="18" style="position: relative; top: 5px" />&nbsp;[Laravel@10.x](https://laravel.com/docs/8.x) - back-end framework
+- <img src="public/readme/assets/tailwind.png" height="18" style="position: relative; top: 5px" />&nbsp;[TailwindCSS](https://tailwindcss.com/) - css framework for styles
+- <img src="public/readme/assets/spatie.png" height="19" style="position: relative; top: 4px" />&nbsp;[Spatie Translatable](https://github.com/spatie/laravel-translatable) - package for translation
 
 
 #
@@ -123,7 +123,7 @@ npm run dev
 ## Database Structure
 [*drawSQL link*](https://drawsql.app/teams/datas-team/diagrams/coronatime)
 
-![](readme/assets/drawSQL-coronatime.png)
+![](public/readme/assets/drawSQL-coronatime.png)
 
 
 #
