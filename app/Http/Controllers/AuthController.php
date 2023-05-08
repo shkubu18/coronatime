@@ -10,12 +10,19 @@ use App\Services\AuthService;
 use App\Services\VerificationUrlService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
 	public function login(LoginRequest $request): RedirectResponse
 	{
-		AuthService::authenticate($request);
+		if (!auth()->attempt([$request->login_type => $request->username_or_email, 'password' => $request->password], $request->remember))
+		{
+			throw ValidationException::withMessages([
+				'auth_fail' => 'Email or password is incorrect',
+			]);
+		}
+
 		AuthService::checkEmailVerification($request);
 
 		session()->regenerate();
