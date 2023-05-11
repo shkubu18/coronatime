@@ -40,8 +40,12 @@
                         <x-form.button>{{ __('auth.login') }}</x-form.button>
                     </form>
                     <div class="flex justify-center">
-                        <p class="mr-1 text-gray">{{ __('auth.dont_have_account') }}</p>
-                        <a class="ml-1 font-semibold" href="{{ route('register.show') }}">{{ __('auth.sign_up') }}</a>
+                        <p class="mr-1 text-gray {{ app()->getLocale() === 'ka' ? 'text-xs sm:text-sm' : '' }}">
+                            {{ __('auth.dont_have_account') }}
+                        </p>
+                        <a class="ml-1 font-semibold {{ app()->getLocale() === 'ka' ? 'text-right text-xs sm:text-sm' : '' }}" href="{{ route('register.show') }}">
+                            {{ __('auth.sign_up') }}
+                        </a>
                     </div>
                 </div>
             </div>
